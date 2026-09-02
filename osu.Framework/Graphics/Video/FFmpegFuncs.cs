@@ -92,6 +92,58 @@ namespace osu.Framework.Graphics.Video
 
         public delegate int SwsScaleDelegate(SwsContext* c, byte*[] srcSlice, int[] srcStride, int srcSliceY, int srcSliceH, byte*[] dst, int[] dstStride);
 
+        public delegate int AvcodecSendFrameDelegate(AVCodecContext* avctx, AVFrame* frame);
+
+        public delegate int AvcodecReceivePacketDelegate(AVCodecContext* avctx, AVPacket* avpkt);
+
+        public delegate int AvOptSetDelegate(void* obj, [MarshalAs(UnmanagedType.LPUTF8Str)] string name, [MarshalAs(UnmanagedType.LPUTF8Str)] string val, int search_flags);
+
+        public delegate int AvFrameMakeWritableDelegate(AVFrame* frame);
+
+        public delegate void AvPacketRescaleTsDelegate(AVPacket* pkt, AVRational tb_src, AVRational tb_dst);
+
+        public delegate int AvInterleavedWriteFrameDelegate(AVFormatContext* s, AVPacket* pkt);
+
+        public delegate AVStream* AvformatNewStreamDelegate(AVFormatContext* s, AVCodec* c);
+
+        public delegate void SwrFreeDelegate(SwrContext** s);
+
+        public delegate int AvDictCopyDelegate(AVDictionary** dst, AVDictionary* src, int flags);
+
+        public delegate int AvcodecParametersFromContextDelegate(AVCodecParameters* par, AVCodecContext* codec);
+
+        public delegate SwrContext* SwrAllocDelegate();
+
+        public delegate int AvOptSetIntDelegate(void* obj, [MarshalAs(UnmanagedType.LPUTF8Str)] string name, long val, int search_flags);
+
+        public delegate int AvOptSetSampleFmtDelegate(void* obj, [MarshalAs(UnmanagedType.LPUTF8Str)] string name, AVSampleFormat fmt, int search_flags);
+
+        public delegate int SwrInitDelegate(SwrContext* s);
+
+        public delegate int AvWriteTrailerDelegate(AVFormatContext* s);
+
+        public delegate int AvGetChannelLayoutNbChannelsDelegate(ulong channel_layout);
+
+        public delegate int AvioClosepDelegate(AVIOContext** s);
+
+        public delegate void AvformatFreeContextDelegate(AVFormatContext* s);
+
+        public delegate int AvformatWriteHeaderDelegate(AVFormatContext* s, AVDictionary** options);
+
+        public delegate int AvformatAllocOutputContext2Delegate(AVFormatContext** avctx, AVOutputFormat* oformat, [MarshalAs(UnmanagedType.LPUTF8Str)] string format, [MarshalAs(UnmanagedType.LPUTF8Str)] string filename);
+
+        public delegate int AvCodecIsEncoderDelegate(AVCodec* codec);
+
+        public delegate int AvioOpenDelegate(AVIOContext** s, [MarshalAs(UnmanagedType.LPUTF8Str)] string filename, int flags);
+
+        public delegate SwsContext* SwsGetContextDelegate(int srcW, int srcH, AVPixelFormat srcFormat, int dstW, int dstH, AVPixelFormat dstFormat, int flags, SwsFilter* srcFilter, SwsFilter* dstFilter, double* param);
+
+        public delegate int SwrConvertDelegate(SwrContext* s, byte** @out, int out_count, byte** @in, int in_count);
+
+        public delegate long AvRescaleQ(long a, AVRational bq, AVRational cq);
+
+        public delegate AVCodec* AvcodecFindEncoderDelegate(AVCodecID id);
+
         #endregion
 
         [CanBeNull]
@@ -136,6 +188,32 @@ namespace osu.Framework.Graphics.Video
         public SwsFreeContextDelegate sws_freeContext;
         public SwsGetCachedContextDelegate sws_getCachedContext;
         public SwsScaleDelegate sws_scale;
+        public AvcodecSendFrameDelegate avcodec_send_frame;
+        public AvcodecReceivePacketDelegate avcodec_receive_packet;
+        public AvOptSetDelegate av_opt_set;
+        public AvFrameMakeWritableDelegate av_frame_make_writable;
+        public AvPacketRescaleTsDelegate av_packet_rescale_ts;
+        public AvInterleavedWriteFrameDelegate av_interleaved_write_frame;
+        public AvformatNewStreamDelegate avformat_new_stream;
+        public SwrFreeDelegate swr_free;
+        public AvDictCopyDelegate av_dict_copy;
+        public AvcodecParametersFromContextDelegate avcodec_parameters_from_context;
+        public SwrAllocDelegate swr_alloc;
+        public AvOptSetIntDelegate av_opt_set_int;
+        public AvOptSetSampleFmtDelegate av_opt_set_sample_fmt;
+        public SwrInitDelegate swr_init;
+        public AvWriteTrailerDelegate av_write_trailer;
+        public AvGetChannelLayoutNbChannelsDelegate av_get_channel_layout_nb_channels;
+        public AvioClosepDelegate avio_closep;
+        public AvformatFreeContextDelegate avformat_free_context;
+        public AvformatWriteHeaderDelegate avformat_write_header;
+        public AvformatAllocOutputContext2Delegate avformat_alloc_output_context2;
+        public AvCodecIsEncoderDelegate av_codec_is_encoder;
+        public AvioOpenDelegate avio_open;
+        public SwsGetContextDelegate sws_getContext;
+        public SwrConvertDelegate swr_convert;
+        public AvRescaleQ av_rescale_q;
+        public AvcodecFindEncoderDelegate avcodec_find_encoder;
 
         // Touching AutoGen.ffmpeg or its LibraryLoader in any way on non-Desktop platforms
         // will cause it to throw in static constructor, which can't be bypassed.
@@ -149,5 +227,14 @@ namespace osu.Framework.Graphics.Video
         public const int AVERROR_EOF = -('E' + ('O' << 8) + ('F' << 16) + (' ' << 24));
         public const long AV_NOPTS_VALUE = unchecked((long)0x8000000000000000);
         public const int ENOMEM = 12;
+        public const int AV_CODEC_CAP_VARIABLE_FRAME_SIZE = 1 << 16;
+        public const int AV_CH_FRONT_LEFT = 0x00000001;
+        public const int AV_CH_FRONT_RIGHT = 0x00000002;
+        public const int AV_CH_LAYOUT_STEREO = AV_CH_FRONT_LEFT | AV_CH_FRONT_RIGHT;
+        public const int AV_CODEC_FLAG_GLOBAL_HEADER = 1 << 22;
+        public const int AVFMT_GLOBALHEADER = 0x0040;
+        public const int SWS_BICUBIC = 4;
+        public const int AVFMT_NOFILE = 0x0001;
+        public const int AVIO_FLAG_WRITE = 2;
     }
 }
